@@ -89,7 +89,7 @@ public class OrderService {
                 _order.setOrderDetails(orderDetails);
                 _order.setOrderProductSum(total);
                 return orderRepo.save(_order).doOnSuccess(o->rabbitClient.sendMessageDelivery(o)); //throw OptimisticLockingFailureException  if order is update
-            }).as(transactionalOperator::transactional);// -> Needs MongoDB replicate set -> custer is needed
+            });//as(transactionalOperator::transactional);// -> Needs MongoDB replicate set -> custer is needed
         });
     }
 
